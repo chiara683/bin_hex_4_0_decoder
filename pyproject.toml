@@ -1,0 +1,14 @@
+[project]
+name = "bin-hex-4-0-decoder"
+version = "0.1.0"
+description = "Library for encoding and decoding Apple BinHex 4.0 files with RLE compression and CRC-16 checks"
+requires-python = ">=3.10"
+dependencies = []
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
