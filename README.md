@@ -33,3 +33,10 @@ The main design decision: the `decode` function takes the bytes *between* the tw
 - **RLE threshold**: The encoder only compresses runs of 4 or more identical bytes. Runs of exactly 3 are emitted literally, because the RLE encoding is 3 bytes long and offers no savings. This matches the classic Macintosh behavior.
 - **Name encoding**: Filenames are encoded as ASCII. Non-ASCII names will raise `UnicodeEncodeError` on encode. Names longer than 63 bytes raise `ValueError`.
 - **CRC variant**: Uses CRC-16 with polynomial 0x1021, initial value 0x0000, no final XOR. This is the variant BinHex 4.0 uses; it is not the same as the more common 0xFFFF-init CRC-16/CCITT.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
